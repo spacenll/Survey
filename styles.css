@@ -10,6 +10,13 @@ body {
     height: 100vh;
     direction: rtl; /* الكتابة من اليمين لليسار */
 }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
 .Dq4amc{
     display:none:
 }
