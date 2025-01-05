@@ -14,19 +14,20 @@
             <p>نهدف دائمًا إلى تقديم الأفضل. نرجو منك تقييم تجربتك معنا لنستطيع تحسين خدماتنا.</p>
         </header>
         <form id="survey-form">
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeCIpNsJ3GKGMkllZLUckBp4_-DtgtK1N3X5xon84jBU81-BQ/viewform?embedded=true" 
+            <iframe id="survey-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSeCIpNsJ3GKGMkllZLUckBp4_-DtgtK1N3X5xon84jBU81-BQ/viewform?embedded=true" 
             width="640" height="620" frameborder="0" marginheight="0" marginwidth="0">
         تحميل...
     </iframe>
         </form>
     </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
     // الوصول إلى الـ iframe داخل الـ survey-form
-    var iframe = $('#survey-form iframe'); 
+    var iframe = $('#survey-iframe'); 
     
     // التحقق من أن الـ iframe تم تحميله بنجاح
-    iframe.on('ready', function() {
+    iframe.on('load', function() {
         var iframeContent = iframe.contents(); // الوصول إلى محتوى الـ iframe
         iframeContent.find('.Dq4amc').hide(); // إخفاء الكلاس Dq4amc
     });
