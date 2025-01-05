@@ -1,8 +1,8 @@
 // إعدادات GitHub API
 const GITHUB_API = {
-    username: "your-username", // ضع اسم المستخدم الخاص بك هنا
+    username: "spacenll", // ضع اسم المستخدم الخاص بك هنا
     repo: "survey-data", // اسم المستودع الذي تريد تخزين البيانات فيه
-    token: "your-github-token", // ضع الـ Token الخاص بك هنا
+    token: "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", // ضع الـ Token الخاص بك هنا
     filePath: "results.json", // مسار ملف النتائج داخل المستودع
 };
 
