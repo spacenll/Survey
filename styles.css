@@ -10,7 +10,9 @@ body {
     height: 100vh;
     direction: rtl; /* الكتابة من اليمين لليسار */
 }
-
+.Dq4amc{
+    display:none:
+}
 .container {
     background: #ffffff;
     border-radius: 15px;
