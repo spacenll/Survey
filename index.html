@@ -23,16 +23,15 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
-    // الوصول إلى الـ iframe داخل الـ survey-form
-    var iframe = $('#survey-iframe'); 
-    
-    // التحقق من أن الـ iframe تم تحميله بنجاح
-    iframe.on('load', function() {
-        var iframeContent = iframe.contents(); // الوصول إلى محتوى الـ iframe
-        iframeContent.find('.Dq4amc').hide(); // إخفاء الكلاس Dq4amc
-                iframeContent.find('.lrKTG > .Dq4amc').css('display', 'none');
-
-    });
+    // تأخير تحميل ملف style.css بعد 2 ثانية من تحميل الصفحة
+    setTimeout(function() {
+        var link = $('#main-style'); // تحديد ملف الستايل
+        var newLink = $('<link>'); // إنشاء عنصر <link> جديد لتحميل الملف مرة أخرى
+        newLink.attr('rel', 'stylesheet');
+        newLink.attr('href', 'https://spacenll.github.io/Survey/styles.css'); // إضافة الرابط المباشر لملف الـ CSS
+        newLink.attr('id', 'main-style'); // التأكد من أن العنصر له نفس الـ ID
+        $('head').append(newLink); // إضافة العنصر الجديد إلى <head>
+    }, 2000); // 2000 ملي ثانية (أي 2 ثانية)
 });
 </script>
 </body>
