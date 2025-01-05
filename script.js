@@ -1,12 +1,31 @@
-// إعدادات GitHub API
-const GITHUB_API = {
-    username: "spacenll", // ضع اسم المستخدم الخاص بك هنا
-    repo: "survey-data", // اسم المستودع الذي تريد تخزين البيانات فيه
-    token: "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", // ضع الـ Token الخاص بك هنا
-    filePath: "results.json", // مسار ملف النتائج داخل المستودع
-};
+// إعدادات المستخدم الخاصة بـ GitHub
+const username = "spacenll";  // اسم المستخدم الخاص بك
+const repo = "survey-data";   // اسم المستودع
+const token = "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"; // الـ Token الخاص بك
+const filePath = "results.json"; // مسار الملف الذي يحتوي على البيانات في المستودع
 
-// جمع الإجابات
+// طلب البيانات من GitHub API
+fetch(`https://api.github.com/repos/${username}/${repo}/contents/${filePath}`, {
+    headers: {
+        Authorization: `token ${token}`,
+    },
+})
+.then((response) => {
+    if (!response.ok) {
+        throw new Error(`GitHub API Error: ${response.status} ${response.statusText}`);
+    }
+    return response.json();  // تحويل البيانات المسترجعة إلى JSON
+})
+.then((data) => {
+    const fileContent = atob(data.content); // فك تشفير البيانات المشفرة (Base64)
+    const jsonData = JSON.parse(fileContent); // تحويل النص إلى JSON
+    console.log("File content:", jsonData);  // طباعة محتوى البيانات في الكونسول
+})
+.catch((error) => {
+    console.error("Error:", error); // التعامل مع الأخطاء
+});
+
+// جمع الإجابات عند إرسال الاستبيان
 document.getElementById("survey-form").addEventListener("submit", async function (e) {
     e.preventDefault();
 
@@ -29,17 +48,17 @@ document.getElementById("survey-form").addEventListener("submit", async function
 
     // عرض رسالة تأكيد
     alert("شكرًا على تقييمك! تم تسجيل إجابتك.");
-    window.location.href = "results.html";
+    window.location.href = "results.html"; // يمكنك تعديل الرابط بناءً على مكان صفحة النتائج لديك
 });
 
 // وظيفة لجلب محتوى الملف من GitHub
 async function fetchGitHubFile() {
     try {
         const response = await fetch(
-            `https://api.github.com/repos/${GITHUB_API.username}/${GITHUB_API.repo}/contents/${GITHUB_API.filePath}`,
+            `https://api.github.com/repos/${username}/${repo}/contents/${filePath}`,
             {
                 headers: {
-                    Authorization: `token ${GITHUB_API.token}`,
+                    Authorization: `token ${token}`,
                 },
             }
         );
@@ -58,41 +77,49 @@ async function fetchGitHubFile() {
     }
 }
 
-
 // وظيفة لتحديث الملف على GitHub
 async function updateGitHubFile(newContent) {
-    const fileResponse = await fetch(
-        `https://api.github.com/repos/${GITHUB_API.username}/${GITHUB_API.repo}/contents/${GITHUB_API.filePath}`,
-        {
-            headers: {
-                Authorization: `token ${GITHUB_API.token}`,
-            },
-        }
-    );
+    try {
+        // جلب معلومات الملف الحالي من GitHub
+        const fileResponse = await fetch(
+            `https://api.github.com/repos/${username}/${repo}/contents/${filePath}`,
+            {
+                headers: {
+                    Authorization: `token ${token}`,
+                },
+            }
+        );
 
-    const fileData = await fileResponse.json();
-    const updatedContent = btoa(JSON.stringify(newContent, null, 2)); // تحويل البيانات إلى Base64
-    const response = await fetch(
-        `https://api.github.com/repos/${GITHUB_API.username}/${GITHUB_API.repo}/contents/${GITHUB_API.filePath}`,
-        {
-            method: "PUT",
-            headers: {
-                Authorization: `token ${GITHUB_API.token}`,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                message: "تحديث بيانات الاستبيان",
-                content: updatedContent,
-                sha: fileData.sha, // SHA الخاص بالملف الحالي
-            }),
-        }
-    );
+        const fileData = await fileResponse.json();
 
-    if (!response.ok) {
+        // تحويل البيانات الجديدة إلى Base64
+        const updatedContent = btoa(JSON.stringify(newContent, null, 2)); 
+
+        // رفع البيانات المحدثة إلى GitHub
+        const response = await fetch(
+            `https://api.github.com/repos/${username}/${repo}/contents/${filePath}`,
+            {
+                method: "PUT",
+                headers: {
+                    Authorization: `token ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    message: "تحديث بيانات الاستبيان",
+                    content: updatedContent,
+                    sha: fileData.sha, // SHA الخاص بالملف الحالي
+                }),
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(`Failed to update file on GitHub: ${response.status} ${response.statusText}`);
+        }
+
+        alert("تم حفظ البيانات بنجاح.");
+        window.location.href = "https://spacenll.github.io/home/"; // الانتقال إلى صفحة النتائج
+    } catch (error) {
+        console.error("Error updating GitHub file:", error);
         alert("حدث خطأ أثناء حفظ البيانات.");
-        return;
     }
-
-    alert("تم حفظ البيانات بنجاح.");
-  window.location.href = "https://spacenll.github.io/home/"; // الانتقال إلى صفحة النتائج
 }
