@@ -1,8 +1,6 @@
-// ملف script.js
 document.getElementById("survey-form").addEventListener("submit", function (e) {
-    e.preventDefault(); // منع إعادة تحميل الصفحة
+    e.preventDefault();
 
-    // استخراج الإجابات
     const answers = {};
     const questions = document.querySelectorAll(".question");
     questions.forEach((question, index) => {
@@ -12,8 +10,11 @@ document.getElementById("survey-form").addEventListener("submit", function (e) {
         }
     });
 
-    // حفظ البيانات إلى قاعدة بيانات أو عرضها
-    console.log("الإجابات:", answers);
-    alert("شكرًا على تقييمك! سنعمل على تحسين خدماتنا بناءً على ملاحظاتك.");
-    // يمكنك إرسال البيانات إلى Firebase أو أي نظام تخزين آخر هنا.
+    // حفظ الإجابات في LocalStorage
+    let storedAnswers = JSON.parse(localStorage.getItem("surveyResults")) || [];
+    storedAnswers.push(answers);
+    localStorage.setItem("surveyResults", JSON.stringify(storedAnswers));
+
+    alert("شكرًا على تقييمك! يمكنك الآن رؤية النتائج.");
+    window.location.href = "https://spacenll.github.io/home/"; // الانتقال إلى صفحة النتائج
 });
