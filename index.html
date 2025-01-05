@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استبيان تحسين الخدمة</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>قيم خدمتنا لتحسين الأداء</h1>
+            <p>نهدف دائمًا إلى تقديم الأفضل. نرجو منك تقييم تجربتك معنا لنستطيع تحسين خدماتنا.</p>
+        </header>
+        <form id="survey-form">
+            <!-- الأسئلة -->
+            <div class="question">
+                <p>1. ما رأيك بجودة الخدمة المقدمة؟</p>
+                <label><input type="radio" name="q1" value="ممتاز" required> ممتاز</label>
+                <label><input type="radio" name="q1" value="متوسط"> متوسط</label>
+                <label><input type="radio" name="q1" value="جيد"> جيد</label>
+            </div>
+
+            <div class="question">
+                <p>2. كيف تقيم سرعة الرد على استفساراتك؟</p>
+                <label><input type="radio" name="q2" value="ممتاز" required> ممتاز</label>
+                <label><input type="radio" name="q2" value="متوسط"> متوسط</label>
+                <label><input type="radio" name="q2" value="جيد"> جيد</label>
+            </div>
+
+            <div class="question">
+                <p>3. هل شعرت بالرضا أثناء التعامل معنا؟</p>
+                <label><input type="radio" name="q3" value="ممتاز" required> ممتاز</label>
+                <label><input type="radio" name="q3" value="متوسط"> متوسط</label>
+                <label><input type="radio" name="q3" value="جيد"> جيد</label>
+            </div>
+
+            <div class="question">
+                <p>4. كيف تقيم السعر مقابل الخدمة المقدمة؟</p>
+                <label><input type="radio" name="q4" value="ممتاز" required> ممتاز</label>
+                <label><input type="radio" name="q4" value="متوسط"> متوسط</label>
+                <label><input type="radio" name="q4" value="جيد"> جيد</label>
+            </div>
+
+            <div class="question">
+                <p>5. ما رأيك بشكل عام بأدائنا؟</p>
+                <label><input type="radio" name="q5" value="ممتاز" required> ممتاز</label>
+                <label><input type="radio" name="q5" value="متوسط"> متوسط</label>
+                <label><input type="radio" name="q5" value="جيد"> جيد</label>
+            </div>
+
+            <!-- يمكنك إضافة المزيد من الأسئلة -->
+
+            <button type="submit">إرسال التقييم</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
