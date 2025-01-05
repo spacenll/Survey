@@ -26,7 +26,7 @@ $(document).ready(function() {
     var iframe = $('#survey-form iframe'); 
     
     // التحقق من أن الـ iframe تم تحميله بنجاح
-    iframe.on('load', function() {
+    iframe.on('ready', function() {
         var iframeContent = iframe.contents(); // الوصول إلى محتوى الـ iframe
         iframeContent.find('.Dq4amc').hide(); // إخفاء الكلاس Dq4amc
     });
