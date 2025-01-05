@@ -20,25 +20,17 @@
     </iframe>
         </form>
     </div>
-    <script>
-     const iframe = document.querySelector(".survey-iframe");
-
-        // إضافة حدث التحميل للـ iframe
-        iframe.addEventListener("load", function() {
-            // الانتظار قليلاً لضمان أن الـ iframe تم تحميله بالكامل
-            setTimeout(function() {
-                // الوصول إلى محتوى الـ iframe
-                const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-
-                // التحقق من وجود الكلاس Dq4amc في الـ document
-                const element = iframeDocument.querySelector(".Dq4amc");
-                if (element) {
-                    // حذف الكلاس Dq4amc
-                    element.classList.remove("Dq4amc");
-                  
-                }
-            }, 1000); // التأخير لمدة ثانية واحدة
-        });
-    </script>
+<script>
+$(document).ready(function() {
+    // الوصول إلى الـ iframe داخل الـ survey-form
+    var iframe = $('#survey-form iframe'); 
+    
+    // التحقق من أن الـ iframe تم تحميله بنجاح
+    iframe.on('load', function() {
+        var iframeContent = iframe.contents(); // الوصول إلى محتوى الـ iframe
+        iframeContent.find('.Dq4amc').hide(); // إخفاء الكلاس Dq4amc
+    });
+});
+</script>
 </body>
 </html>
