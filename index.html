@@ -21,16 +21,23 @@
         </form>
     </div>
     <script>
-        
-        // استهداف جميع العناصر التي تحمل الكلاس 'survey-iframe'
-        const iframes = document.querySelectorAll(".survey-iframe");
+     const iframe = document.querySelector(".survey-iframe");
 
-        iframes.forEach((iframe) => {
-            iframe.addEventListener("load", function() {
-                // إزالة الكلاس Dq4amc من الـ iframe
-                iframe.classList.remove("Dq4amc");
-            
-            });
+        // إضافة حدث التحميل للـ iframe
+        iframe.addEventListener("load", function() {
+            // الانتظار قليلاً لضمان أن الـ iframe تم تحميله بالكامل
+            setTimeout(function() {
+                // الوصول إلى محتوى الـ iframe
+                const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+
+                // التحقق من وجود الكلاس Dq4amc في الـ document
+                const element = iframeDocument.querySelector(".Dq4amc");
+                if (element) {
+                    // حذف الكلاس Dq4amc
+                    element.classList.remove("Dq4amc");
+                  
+                }
+            }, 1000); // التأخير لمدة ثانية واحدة
         });
     </script>
 </body>
