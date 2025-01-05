@@ -19,6 +19,14 @@
     </iframe>
         </form>
     </div>
-   
+    <script>
+        // انتظر حتى يتم تحميل iframe
+        document.getElementById("survey-iframe").addEventListener("load", function() {
+            // حذف الكلاس Dq4amc
+            let iframe = document.getElementById("survey-iframe");
+            iframe.classList.remove("Dq4amc");
+         
+        });
+    </script>
 </body>
 </html>
