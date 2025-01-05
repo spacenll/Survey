@@ -34,24 +34,30 @@ document.getElementById("survey-form").addEventListener("submit", async function
 
 // وظيفة لجلب محتوى الملف من GitHub
 async function fetchGitHubFile() {
-    const response = await fetch(
-        `https://api.github.com/repos/${GITHUB_API.username}/${GITHUB_API.repo}/contents/${GITHUB_API.filePath}`,
-        {
-            headers: {
-                Authorization: `token ${GITHUB_API.token}`,
-            },
-        }
-    );
+    try {
+        const response = await fetch(
+            `https://api.github.com/repos/${GITHUB_API.username}/${GITHUB_API.repo}/contents/${GITHUB_API.filePath}`,
+            {
+                headers: {
+                    Authorization: `token ${GITHUB_API.token}`,
+                },
+            }
+        );
 
-    if (!response.ok) {
-        alert("حدث خطأ أثناء جلب البيانات.");
+        if (!response.ok) {
+            throw new Error(`GitHub API returned an error: ${response.status} ${response.statusText}`);
+        }
+
+        const fileData = await response.json();
+        const content = atob(fileData.content); // فك تشفير المحتوى (Base64)
+        return JSON.parse(content); // تحويل النص إلى JSON
+    } catch (error) {
+        console.error("Error fetching GitHub file:", error);
+        alert("حدث خطأ أثناء جلب البيانات. تفقد الكونسول لمزيد من التفاصيل.");
         return [];
     }
-
-    const fileData = await response.json();
-    const content = atob(fileData.content); // فك تشفير المحتوى (Base64)
-    return JSON.parse(content); // تحويل النص إلى JSON
 }
+
 
 // وظيفة لتحديث الملف على GitHub
 async function updateGitHubFile(newContent) {
